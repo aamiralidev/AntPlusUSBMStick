@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "antplust1", "antplust1\antplust1.csproj", "{22FF2965-C3A5-4BF9-AB9B-E00041EA36CD}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AntPlus", "installer\installer.vdproj", "{B5E998C3-F897-4CF5-A946-1D7C72722EB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aplifit USB Service", "AntPlus Service\Aplifit USB Service.csproj", "{A663D839-C19A-414D-B135-A3E3C2A29BF5}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Aplifit USB ANT", "AntService\AntService.vdproj", "{013CDA8A-0ADD-4181-BEA2-066CFBF6E79E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aplifit USB Config", "AntPlusConfig\Aplifit USB Config.csproj", "{390D1F91-9318-4A25-B3E5-68CA01EB3B60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22FF2965-C3A5-4BF9-AB9B-E00041EA36CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22FF2965-C3A5-4BF9-AB9B-E00041EA36CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22FF2965-C3A5-4BF9-AB9B-E00041EA36CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22FF2965-C3A5-4BF9-AB9B-E00041EA36CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5E998C3-F897-4CF5-A946-1D7C72722EB0}.Debug|Any CPU.ActiveCfg = Debug
+		{B5E998C3-F897-4CF5-A946-1D7C72722EB0}.Release|Any CPU.ActiveCfg = Release
+		{A663D839-C19A-414D-B135-A3E3C2A29BF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A663D839-C19A-414D-B135-A3E3C2A29BF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A663D839-C19A-414D-B135-A3E3C2A29BF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A663D839-C19A-414D-B135-A3E3C2A29BF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{013CDA8A-0ADD-4181-BEA2-066CFBF6E79E}.Debug|Any CPU.ActiveCfg = Debug
+		{013CDA8A-0ADD-4181-BEA2-066CFBF6E79E}.Release|Any CPU.ActiveCfg = Release
+		{390D1F91-9318-4A25-B3E5-68CA01EB3B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{390D1F91-9318-4A25-B3E5-68CA01EB3B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{390D1F91-9318-4A25-B3E5-68CA01EB3B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{390D1F91-9318-4A25-B3E5-68CA01EB3B60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9D1BDE0A-BDC0-430F-9900-8DF074C4D0A4}
+	EndGlobalSection
+EndGlobal
