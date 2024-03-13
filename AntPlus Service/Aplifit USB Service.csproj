@@ -115,6 +115,7 @@
     <Compile Include="AntInstaller.Designer.cs">
       <DependentUpon>AntInstaller.cs</DependentUpon>
     </Compile>
+    <Compile Include="DriverInstaller.cs" />
     <Compile Include="Service1.cs">
       <SubType>Component</SubType>
     </Compile>

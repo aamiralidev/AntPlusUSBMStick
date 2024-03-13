@@ -15,8 +15,56 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_005359E3660C9258354318A2B4CF3687"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_005359E3660C9258354318A2B4CF3687"
+        "OwnerKey" = "8:_DFBDE65134078EF8D0BF69B4D1A8A275"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_046D3909AC5948EBB810E6BE7789C0A9"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_06F61E63C0894279B9EC3C323F1EDE74"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_09BFE2C00BCBA70411545F5D2D44690E"
+        "OwnerKey" = "8:_F187B595C5EB56A7660F381DFA391E20"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_09BFE2C00BCBA70411545F5D2D44690E"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0C7B2372732DB0C4C16B7D43B0028C9B"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0C7B2372732DB0C4C16B7D43B0028C9B"
+        "OwnerKey" = "8:_DFBDE65134078EF8D0BF69B4D1A8A275"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0C7B2372732DB0C4C16B7D43B0028C9B"
+        "OwnerKey" = "8:_005359E3660C9258354318A2B4CF3687"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -33,6 +81,30 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_249005DDB3E70B84971D52A6109D000D"
+        "OwnerKey" = "8:_F187B595C5EB56A7660F381DFA391E20"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_249005DDB3E70B84971D52A6109D000D"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_249005DDB3E70B84971D52A6109D000D"
+        "OwnerKey" = "8:_3EAA4CFD424CB457E9C4D42A7FA8D5EB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_249005DDB3E70B84971D52A6109D000D"
+        "OwnerKey" = "8:_703525CAAC0C10C296C8CDD335568440"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_285023ED8404825A0A7414BCD3AC2C43"
         "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
         "MsmSig" = "8:_UNDEFINED"
@@ -45,8 +117,56 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3EAA4CFD424CB457E9C4D42A7FA8D5EB"
+        "OwnerKey" = "8:_F187B595C5EB56A7660F381DFA391E20"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3EAA4CFD424CB457E9C4D42A7FA8D5EB"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_403D72737F7F415D92C4768130F8D539"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4FD219427873F87DCF467459D91B0148"
+        "OwnerKey" = "8:_703525CAAC0C10C296C8CDD335568440"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4FD219427873F87DCF467459D91B0148"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4FD219427873F87DCF467459D91B0148"
+        "OwnerKey" = "8:_F187B595C5EB56A7660F381DFA391E20"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_52BB138E243A730DEFC211800049060D"
+        "OwnerKey" = "8:_E3F42AB512FA91BA4A2621E0263065A9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_52BB138E243A730DEFC211800049060D"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_52BB138E243A730DEFC211800049060D"
+        "OwnerKey" = "8:_F187B595C5EB56A7660F381DFA391E20"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -70,6 +190,12 @@
         "Entry"
         {
         "MsmKey" = "8:_5C9BF256A3A328A17032568ADF0C8FE3"
+        "OwnerKey" = "8:_DFBDE65134078EF8D0BF69B4D1A8A275"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5C9BF256A3A328A17032568ADF0C8FE3"
         "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -77,6 +203,24 @@
         {
         "MsmKey" = "8:_6B1BC4614DFB433D9511839D4E4CF24B"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_703525CAAC0C10C296C8CDD335568440"
+        "OwnerKey" = "8:_F187B595C5EB56A7660F381DFA391E20"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_703525CAAC0C10C296C8CDD335568440"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_703525CAAC0C10C296C8CDD335568440"
+        "OwnerKey" = "8:_3EAA4CFD424CB457E9C4D42A7FA8D5EB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -99,8 +243,68 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_89D76B5FF5FE45F498A4EA5DDD2542A7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_8C25BE4A3B8BFEA52860894D6117DE72"
         "OwnerKey" = "8:_F27AE0983E4267E4C47FC661595D1C10"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8CD500494E484D31A43E5B0969BD753A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8E968639AD8241F482CA8C4ED6B60B0D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9131220AF6844AB2501093DC6353ADDB"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9131220AF6844AB2501093DC6353ADDB"
+        "OwnerKey" = "8:_DFBDE65134078EF8D0BF69B4D1A8A275"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9131220AF6844AB2501093DC6353ADDB"
+        "OwnerKey" = "8:_005359E3660C9258354318A2B4CF3687"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9131220AF6844AB2501093DC6353ADDB"
+        "OwnerKey" = "8:_0C7B2372732DB0C4C16B7D43B0028C9B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_92BB8BBFA7E94C1A9758481A82EB7928"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_937E71D94B8D4639B21946A93791A772"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9D14074CB375477CA3704D30FFFA1560"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -119,6 +323,24 @@
         {
         "MsmKey" = "8:_B59D0FC346E7D38F09370348723818CA"
         "OwnerKey" = "8:_3190B48E37854EEC91FC496E07321195"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B5DAB55AA25F4A5189084CDD172FD77B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B828841C3F6F4BF3A14714350FD1F842"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C662A50651749B62F843E7FFDFF6F047"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -147,7 +369,31 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_DFBDE65134078EF8D0BF69B4D1A8A275"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_E0C17BF55FB8430EBA4D2F7EEF2EB2C2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E3F42AB512FA91BA4A2621E0263065A9"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E3F42AB512FA91BA4A2621E0263065A9"
+        "OwnerKey" = "8:_F187B595C5EB56A7660F381DFA391E20"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E5D87717CCB847CEA58C14D6960278A6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -165,8 +411,50 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_F187B595C5EB56A7660F381DFA391E20"
+        "OwnerKey" = "8:_005359E3660C9258354318A2B4CF3687"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F187B595C5EB56A7660F381DFA391E20"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F187B595C5EB56A7660F381DFA391E20"
+        "OwnerKey" = "8:_DFBDE65134078EF8D0BF69B4D1A8A275"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_F27AE0983E4267E4C47FC661595D1C10"
         "OwnerKey" = "8:_3190B48E37854EEC91FC496E07321195"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F27AE0983E4267E4C47FC661595D1C10"
+        "OwnerKey" = "8:_005359E3660C9258354318A2B4CF3687"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F27AE0983E4267E4C47FC661595D1C10"
+        "OwnerKey" = "8:_0C7B2372732DB0C4C16B7D43B0028C9B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F27AE0983E4267E4C47FC661595D1C10"
+        "OwnerKey" = "8:_9131220AF6844AB2501093DC6353ADDB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F27AE0983E4267E4C47FC661595D1C10"
+        "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -177,14 +465,44 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_F5FE72DD2D0A45E39DAC946536A87318"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_FB2927BF8D2F5A58F4E490B4B740FAE7"
         "OwnerKey" = "8:_3190B48E37854EEC91FC496E07321195"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_FB2927BF8D2F5A58F4E490B4B740FAE7"
+        "MsmKey" = "8:_FBB03364D03F02B2EB11A7EA76C8C41C"
+        "OwnerKey" = "8:_52BB138E243A730DEFC211800049060D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FBB03364D03F02B2EB11A7EA76C8C41C"
         "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FBB03364D03F02B2EB11A7EA76C8C41C"
+        "OwnerKey" = "8:_3EAA4CFD424CB457E9C4D42A7FA8D5EB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FBB03364D03F02B2EB11A7EA76C8C41C"
+        "OwnerKey" = "8:_F187B595C5EB56A7660F381DFA391E20"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FBB03364D03F02B2EB11A7EA76C8C41C"
+        "OwnerKey" = "8:_703525CAAC0C10C296C8CDD335568440"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -203,6 +521,72 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_403D72737F7F415D92C4768130F8D539"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_DFBDE65134078EF8D0BF69B4D1A8A275"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F187B595C5EB56A7660F381DFA391E20"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_09BFE2C00BCBA70411545F5D2D44690E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3EAA4CFD424CB457E9C4D42A7FA8D5EB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_703525CAAC0C10C296C8CDD335568440"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4FD219427873F87DCF467459D91B0148"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_249005DDB3E70B84971D52A6109D000D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C662A50651749B62F843E7FFDFF6F047"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E3F42AB512FA91BA4A2621E0263065A9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_52BB138E243A730DEFC211800049060D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_FBB03364D03F02B2EB11A7EA76C8C41C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -502,6 +886,57 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_005359E3660C9258354318A2B4CF3687"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:SocketIO.Serializer.SystemTextJson, Version=3.1.1.0, Culture=neutral, PublicKeyToken=c9a3629195a82104, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_005359E3660C9258354318A2B4CF3687"
+                    {
+                    "Name" = "8:SocketIO.Serializer.SystemTextJson.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:SocketIO.Serializer.SystemTextJson.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_046D3909AC5948EBB810E6BE7789C0A9"
+            {
+            "SourcePath" = "8:..\\AntPlus Service\\ant_usb2_drivers\\ia64\\libusb0.dll"
+            "TargetName" = "8:libusb0.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_DE2B5BBE3A9C46148F79DCB1FBD39A2F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_06F61E63C0894279B9EC3C323F1EDE74"
             {
             "SourcePath" = "8:..\\AntPlus Service\\icon.ico"
@@ -520,6 +955,68 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_09BFE2C00BCBA70411545F5D2D44690E"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_09BFE2C00BCBA70411545F5D2D44690E"
+                    {
+                    "Name" = "8:System.ValueTuple.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.ValueTuple.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0C7B2372732DB0C4C16B7D43B0028C9B"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:SocketIO.Serializer.Core, Version=3.1.1.0, Culture=neutral, PublicKeyToken=c9a3629195a82104, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_0C7B2372732DB0C4C16B7D43B0028C9B"
+                    {
+                    "Name" = "8:SocketIO.Serializer.Core.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:SocketIO.Serializer.Core.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0F8E55D75D390B32023C5E545BE6995A"
@@ -573,6 +1070,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_249005DDB3E70B84971D52A6109D000D"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_249005DDB3E70B84971D52A6109D000D"
+                    {
+                    "Name" = "8:System.Buffers.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Buffers.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_285023ED8404825A0A7414BCD3AC2C43"
             {
             "AssemblyRegister" = "3:1"
@@ -587,6 +1115,99 @@
                     }
                 }
             "SourcePath" = "8:ANT_NET.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3EAA4CFD424CB457E9C4D42A7FA8D5EB"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_3EAA4CFD424CB457E9C4D42A7FA8D5EB"
+                    {
+                    "Name" = "8:System.Text.Encodings.Web.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Text.Encodings.Web.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4FD219427873F87DCF467459D91B0148"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_4FD219427873F87DCF467459D91B0148"
+                    {
+                    "Name" = "8:System.Numerics.Vectors.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Numerics.Vectors.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_52BB138E243A730DEFC211800049060D"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_52BB138E243A730DEFC211800049060D"
+                    {
+                    "Name" = "8:System.Threading.Tasks.Extensions.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Threading.Tasks.Extensions.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
@@ -717,6 +1338,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_703525CAAC0C10C296C8CDD335568440"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_703525CAAC0C10C296C8CDD335568440"
+                    {
+                    "Name" = "8:System.Memory.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Memory.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7907480A6CFC970496B50BB9FF5C5236"
             {
             "AssemblyRegister" = "3:1"
@@ -779,6 +1431,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_89D76B5FF5FE45F498A4EA5DDD2542A7"
+            {
+            "SourcePath" = "8:..\\AntPlus Service\\ant_usb2_drivers\\x86\\AntUsbCoInstall_x86.dll"
+            "TargetName" = "8:AntUsbCoInstall_x86.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_5B11E6A5180B46BC884204F463E7FFE8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8C25BE4A3B8BFEA52860894D6117DE72"
             {
             "AssemblyRegister" = "3:1"
@@ -808,6 +1480,137 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8CD500494E484D31A43E5B0969BD753A"
+            {
+            "SourcePath" = "8:..\\AntPlus Service\\ant_usb2_drivers\\amd64\\AntUsbCoInstall_x64.dll"
+            "TargetName" = "8:AntUsbCoInstall_x64.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_473B231721AA4A918926C3D6CB6C61F4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8E968639AD8241F482CA8C4ED6B60B0D"
+            {
+            "SourcePath" = "8:..\\AntPlus Service\\ant_usb2_drivers\\ANT_LibUsb.inf"
+            "TargetName" = "8:ANT_LibUsb.inf"
+            "Tag" = "8:"
+            "Folder" = "8:_05B118BED5E44F3C810D394A1B782F9C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9131220AF6844AB2501093DC6353ADDB"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:SocketIO.Core, Version=3.1.1.0, Culture=neutral, PublicKeyToken=c9a3629195a82104, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_9131220AF6844AB2501093DC6353ADDB"
+                    {
+                    "Name" = "8:SocketIO.Core.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:SocketIO.Core.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_92BB8BBFA7E94C1A9758481A82EB7928"
+            {
+            "SourcePath" = "8:..\\AntPlus Service\\ant_usb2_drivers\\ANT_LibUsb.cat"
+            "TargetName" = "8:ANT_LibUsb.cat"
+            "Tag" = "8:"
+            "Folder" = "8:_05B118BED5E44F3C810D394A1B782F9C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_937E71D94B8D4639B21946A93791A772"
+            {
+            "SourcePath" = "8:..\\AntPlus Service\\ant_usb2_drivers\\ia64\\libusb0.sys"
+            "TargetName" = "8:libusb0.sys"
+            "Tag" = "8:"
+            "Folder" = "8:_DE2B5BBE3A9C46148F79DCB1FBD39A2F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9D14074CB375477CA3704D30FFFA1560"
+            {
+            "SourcePath" = "8:..\\AntPlus Service\\ant_usb2_drivers\\x86\\libusb0.sys"
+            "TargetName" = "8:libusb0.sys"
+            "Tag" = "8:"
+            "Folder" = "8:_5B11E6A5180B46BC884204F463E7FFE8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B0651B197BFB71CF7203B2A1D18D7597"
@@ -855,6 +1658,77 @@
                     }
                 }
             "SourcePath" = "8:System.ServiceProcess.Core.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B5DAB55AA25F4A5189084CDD172FD77B"
+            {
+            "SourcePath" = "8:..\\AntPlus Service\\ant_usb2_drivers\\amd64\\libusb0.dll"
+            "TargetName" = "8:libusb0.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_473B231721AA4A918926C3D6CB6C61F4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B828841C3F6F4BF3A14714350FD1F842"
+            {
+            "SourcePath" = "8:..\\AntPlus Service\\ant_usb2_drivers\\amd64\\libusb0.sys"
+            "TargetName" = "8:libusb0.sys"
+            "Tag" = "8:"
+            "Folder" = "8:_473B231721AA4A918926C3D6CB6C61F4"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C662A50651749B62F843E7FFDFF6F047"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_C662A50651749B62F843E7FFDFF6F047"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
@@ -934,12 +1808,94 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DFBDE65134078EF8D0BF69B4D1A8A275"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:SocketIOClient, Version=3.1.1.0, Culture=neutral, PublicKeyToken=c9a3629195a82104, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_DFBDE65134078EF8D0BF69B4D1A8A275"
+                    {
+                    "Name" = "8:SocketIOClient.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:SocketIOClient.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E0C17BF55FB8430EBA4D2F7EEF2EB2C2"
             {
             "SourcePath" = "8:..\\AntPlus Service\\app.manifest"
             "TargetName" = "8:app.manifest"
             "Tag" = "8:"
             "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E3F42AB512FA91BA4A2621E0263065A9"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_E3F42AB512FA91BA4A2621E0263065A9"
+                    {
+                    "Name" = "8:Microsoft.Bcl.AsyncInterfaces.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.Bcl.AsyncInterfaces.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E5D87717CCB847CEA58C14D6960278A6"
+            {
+            "SourcePath" = "8:..\\AntPlus Service\\ant_usb2_drivers\\x86\\libusb0_x86.dll"
+            "TargetName" = "8:libusb0_x86.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_5B11E6A5180B46BC884204F463E7FFE8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -994,6 +1950,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F187B595C5EB56A7660F381DFA391E20"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Text.Json, Version=7.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_F187B595C5EB56A7660F381DFA391E20"
+                    {
+                    "Name" = "8:System.Text.Json.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Text.Json.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F27AE0983E4267E4C47FC661595D1C10"
             {
             "AssemblyRegister" = "3:1"
@@ -1025,6 +2012,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F5FE72DD2D0A45E39DAC946536A87318"
+            {
+            "SourcePath" = "8:..\\AntPlus Service\\ant_usb2_drivers\\README.txt"
+            "TargetName" = "8:README.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_05B118BED5E44F3C810D394A1B782F9C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FB2927BF8D2F5A58F4E490B4B740FAE7"
             {
             "AssemblyRegister" = "3:1"
@@ -1039,6 +2046,37 @@
                     }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FBB03364D03F02B2EB11A7EA76C8C41C"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_FBB03364D03F02B2EB11A7EA76C8C41C"
+                    {
+                    "Name" = "8:System.Runtime.CompilerServices.Unsafe.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Runtime.CompilerServices.Unsafe.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
@@ -1103,6 +2141,50 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_05B118BED5E44F3C810D394A1B782F9C"
+                    {
+                    "Name" = "8:ant_usb2_drivers"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_D932D9CB45A1466181EB130E94068E9C"
+                        "Folders"
+                        {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_473B231721AA4A918926C3D6CB6C61F4"
+                            {
+                            "Name" = "8:amd64"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_B1E23B08398A46829B29A95BE5ADEDFA"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_5B11E6A5180B46BC884204F463E7FFE8"
+                            {
+                            "Name" = "8:x86"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_829D30B3C6854523921B3E070C3EF830"
+                                "Folders"
+                                {
+                                }
+                            }
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_DE2B5BBE3A9C46148F79DCB1FBD39A2F"
+                            {
+                            "Name" = "8:ia64"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_EB18717DE6894637B6936E7C8F26321F"
+                                "Folders"
+                                {
+                                }
+                            }
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_58E2AD09BB3545C480D28D932C69418C"
@@ -1144,7 +2226,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Aplifit USB ANT"
         "ProductCode" = "8:{A5CC4EF0-EF12-4EA9-B0D0-E31DDBC278B4}"
-        "PackageCode" = "8:{5ACE3088-1D67-4959-987C-0E90A9ADC204}"
+        "PackageCode" = "8:{05AE07C5-2FC7-4085-848C-C017616ECD84}"
         "UpgradeCode" = "8:{C6CAAB2C-3A30-4014-AAC9-2F4C41C65CDB}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -1693,7 +2775,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3190B48E37854EEC91FC496E07321195"
             {
-            "SourcePath" = "8:..\\AntPlusConfig\\obj\\Debug\\AntPlusConfig.exe"
+            "SourcePath" = "8:..\\AntPlusConfig\\obj\\Release\\ApliftUSBConfig.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"
@@ -1721,7 +2803,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_403D72737F7F415D92C4768130F8D539"
             {
-            "SourcePath" = "8:..\\AntPlus Service\\obj\\Debug\\AntPlus Service.exe"
+            "SourcePath" = "8:..\\AntPlus Service\\obj\\Release\\AplifitUSBANT.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0F3C64A3868F4F9A84C950713F048453"

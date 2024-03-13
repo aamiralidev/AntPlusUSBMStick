@@ -6,23 +6,31 @@ using System.Management;
 using ANT_Managed_Library;
 using System.IO;
 using Newtonsoft.Json;
+using System.Text;
+using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace AntPlus_Service
 {
     public partial class AntPlus_Service : ServiceBase
     {
-        private EventLog eventLog;
+        private static EventLog eventLog;
         ManagementEventWatcher watcher;
         ManagementEventWatcher disconnectionWatcher;
         private static string logName = "AplifitLog";
         private static string logSource = "AplifitUSBANT";
+        private static string logFilePath = "ApliftUSBANT.log";
         private FileSystemWatcher configWatcher;
         private string configFilePath = @"config.txt";
         string installationDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        private static StreamWriter logWriter;
 
         private static int roomNo = 0;
         private static int groupNo = 0;
         private static SocketIOClient.SocketIO client;
+        string hardwareId = @"USB\\VID_0FCF&PID_1009";
+        string infPath = @"ant_usb2_drivers\ANT_LibUsb.inf";
+        bool driverInstalled = false;
         /*        private int channelFreq = 57;
                 private byte[] networkKey = { 0xB9, 0xA5, 0x21, 0xFB, 0xBD, 0x72, 0xC3, 0x45 };
                 private int networkNumber = 0; */
@@ -30,7 +38,8 @@ namespace AntPlus_Service
         {
             AntPlus_Service.client = new SocketIOClient.SocketIO("https://app-pre.aplifitplay.com/lessons");
             InitializeComponent();
-            eventLog = new EventLog();
+            AntPlus_Service.eventLog = new EventLog();
+            AntPlus_Service.logWriter = new StreamWriter(AntPlus_Service.logFilePath, true);
             if (!EventLog.SourceExists(AntPlus_Service.logSource))
             {
                 EventLog.CreateEventSource(AntPlus_Service.logSource, AntPlus_Service.logName);
@@ -39,9 +48,31 @@ namespace AntPlus_Service
             {
                 AntPlus_Service.logName = EventLog.LogNameFromSourceName(logSource, ".");
             }
-            eventLog.Source = AntPlus_Service.logSource;
-            eventLog.Log = AntPlus_Service.logName;
+            AntPlus_Service.eventLog.Source = AntPlus_Service.logSource;
+            AntPlus_Service.eventLog.Log = AntPlus_Service.logName;
+            ReadConfigFile();
             //ReadConfigFile();
+            /*string query = $"SELECT * FROM Win32_PnPEntity WHERE DeviceID LIKE '%{hardwareId}%'";
+            try
+            {
+                driverInstalled = DriverInstaller.IsDriverInstalled(hardwareId);
+                if (true)
+                {
+                    DriverInstaller.InstallDriver(Path.Combine(this.installationDirectory, this.infPath));
+                    AntPlus_Service.eventLog.WriteEntry("Installed Driver From Path + " + Path.Combine(this.installationDirectory, this.infPath));
+                }else
+                {
+                    AntPlus_Service.eventLog.WriteEntry("Driver is already installed");
+                }
+            }
+            catch (Win32Exception ex)
+            {
+                AntPlus_Service.eventLog.WriteEntry($"Error Installing Driver with query: {query}, Error: {ex.Message} + {ex.ErrorCode}, infPath {Path.Combine(this.installationDirectory, this.infPath)}");
+            }
+            catch (Exception ex)
+            {
+                AntPlus_Service.eventLog.WriteEntry($"Error Installing Driver with query: {query}, Error: {ex.Message} + {ExceptionDataToString(ex)}, infPath {Path.Combine(this.installationDirectory, this.infPath)}" );
+            } */
 
         }
 
@@ -61,22 +92,40 @@ namespace AntPlus_Service
             disconnectionWatcher.EventArrived += new EventArrivedEventHandler(DeviceDisconnectedEvent);
             disconnectionWatcher.Start();
 
+            HandleAttachedDevices();
+
             WqlEventQuery query = new WqlEventQuery("SELECT * FROM __InstanceCreationEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_PnPEntity'");
             watcher = new ManagementEventWatcher(query);
             watcher.EventArrived += new EventArrivedEventHandler(DeviceAttachedEvent);
             watcher.Start();
-            eventLog.WriteEntry("Service started successfully", EventLogEntryType.Information);
+
+            AntPlus_Service.eventLog.WriteEntry("Service started successfully", EventLogEntryType.Information);
         }
 
         protected override void OnStop()
         {
-            eventLog.WriteEntry("Service stopping...", EventLogEntryType.Information);
+            AntPlus_Service.eventLog.WriteEntry("Service stopping...", EventLogEntryType.Information);
             /*stopWorkerThread = true;
             workerThread.Join(); */
             this.watcher.Stop();
 
         }
 
+        private void HandleAttachedDevices()
+        {
+            var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity WHERE DeviceID LIKE '%USB%'");
+            foreach (var device in searcher.Get())
+            {
+                string deviceId = device["DeviceID"].ToString();
+                // Filter for devices with the ANT+ VID (and optionally PID)if (deviceId.Contains(antVid))
+                if(deviceId.Contains("VID_0FCF") && deviceId.Contains("PID_1009"))
+                {
+                    AntPlus_Service.eventLog.WriteEntry($"Device detected: (ID: {deviceId})", EventLogEntryType.Information);
+                    Thread listenThread = new Thread(() => ListenForAntPlusData(""));
+                    listenThread.Start();
+                }
+            }
+        }
         static void DeviceAttachedEvent(object sender, EventArrivedEventArgs e)
         {
             // Extract device details from the event
@@ -143,8 +192,9 @@ namespace AntPlus_Service
                 byte[] userNetworkKey = { 0xB9, 0xA5, 0x21, 0xFB, 0xBD, 0x72, 0xC3, 0x45 };
                 //byte[] userNetworkKey = { 0, 0, 0, 0, 0, 0, 0, 0 };
                 device0.setNetworkKey(0, userNetworkKey);
-
+                
                 channel0.openChannel();
+                AntPlus_Service.eventLog.WriteEntry("Opened channel, Ready to Listen");
             }
             catch(Exception e)
             {
@@ -267,12 +317,17 @@ namespace AntPlus_Service
                 {
                     eventLog.Source = AntPlus_Service.logSource;
                     eventLog.WriteEntry($"Trying to send Data: {jsonData}", EventLogEntryType.Information);
-                    await AntPlus_Service.client.EmitAsync("antenna-data", response => {
-                        eventLog.WriteEntry($"Data sent, recieved response: {response}", EventLogEntryType.Information);
-                    }, jsonData);
                 }
-                
-            }catch (Exception ex)
+                await AntPlus_Service.client.EmitAsync("antenna-data", response => {
+                    using (EventLog eventLog = new EventLog(AntPlus_Service.logName))
+                    {
+                        eventLog.Source = AntPlus_Service.logSource;
+                        eventLog.WriteEntry($"Data sent, recieved response: {response}", EventLogEntryType.Information);
+                    }
+                }, jsonData);
+
+            }
+            catch (Exception ex)
             {
                 using (EventLog eventLog = new EventLog(AntPlus_Service.logName))
                 {
@@ -286,6 +341,20 @@ namespace AntPlus_Service
         private void OnConfigChange(object sender, FileSystemEventArgs e)
         {
             ReadConfigFile();
+        }
+
+        public static string ExceptionDataToString(Exception ex)
+        {
+            if (ex.Data == null || ex.Data.Count == 0)
+            {
+                return "No additional data.";
+            }
+            StringBuilder sb = new StringBuilder();
+            foreach (System.Collections.DictionaryEntry entry in ex.Data)
+            {
+                sb.AppendFormat("{0}: {1}{2}", entry.Key, entry.Value, Environment.NewLine);
+            }
+            return sb.ToString();
         }
     }
 }

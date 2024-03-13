@@ -143,6 +143,7 @@ namespace ANT_Console_Demo
             await client.EmitAsync("antenna-data", response =>
             {
                 Console.WriteLine($"Acknowledgement received: {response}");
+                Console.ReadKey();
             }, jsonData);
 
             Console.WriteLine("Data sent to server");
