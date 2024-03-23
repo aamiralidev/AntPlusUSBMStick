@@ -21,12 +21,12 @@ All rights reserved.
 #define ENABLE_EXTENDED_MESSAGES // Un - coment to enable extended messages
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using ANT_Managed_Library;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Management;
+using System.IO;
 
 namespace ANT_Console_Demo
 {
@@ -53,6 +53,7 @@ namespace ANT_Console_Demo
         static bool bDisplay;
         static bool bBroadcasting;
         static int iIndex = 0;
+        private static StreamWriter Consolee;
 
 
         ////////////////////////////////////////////////////////////////////////////////
@@ -75,8 +76,61 @@ namespace ANT_Console_Demo
         // be prompted to enter these after the program starts
         //
         ////////////////////////////////////////////////////////////////////////////////
+
+
+        static void ListenForAntPlusData(string deviceDescription)
+        {
+            try
+            {
+                device0 = new ANT_Device();   // Create a device instance using the automatic constructor (automatic detection of USB device number and baud rate)
+                // device0.deviceResponse += new ANT_Device.dDeviceResponseHandler(DeviceResponse);    // Add device response function to receive protocol event messages
+
+                channel0 = device0.getChannel(0);    // Get channel from ANT device
+                channel0.channelResponse += new dChannelResponseHandler(ChannelResponse);  // Add channel response function to receive channel event messages
+                
+                channel0.assignChannel(ANT_ReferenceLibrary.ChannelType.BASE_Slave_Receive_0x00, 0, 500);
+                channel0.setChannelID(0, false, 0, 0);
+                channel0.setChannelFreq(57);
+                channel0.setChannelPeriod(8070);
+                byte[] userNetworkKey = { 0xB9, 0xA5, 0x21, 0xFB, 0xBD, 0x72, 0xC3, 0x45 };
+                //byte[] userNetworkKey = { 0, 0, 0, 0, 0, 0, 0, 0 };
+                device0.setNetworkKey(0, userNetworkKey);
+                var timeout = 30 / 2.5;
+                int timeoutValue = (int)timeout;
+                channel0.setChannelSearchTimeout((byte)timeoutValue);
+                
+                channel0.openChannel();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        static void HandleAttachedDevices()
+        {
+            var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity WHERE DeviceID LIKE '%USB%'");
+            foreach (var device in searcher.Get())
+            {
+                string deviceId = device["DeviceID"].ToString();
+                // Filter for devices with the ANT+ VID (and optionally PID)if (deviceId.Contains(antVid))
+                if (deviceId.Contains("VID_0FCF") && deviceId.Contains("PID_1009"))
+                {
+                    ListenForAntPlusData("");
+                    Console.WriteLine($"Listening on device with id: {deviceId}");
+                }
+            }
+        }
+
         static async Task Main(string[] args)
         {
+            Consolee = new StreamWriter("aplifit.log", true);
+            //HandleAttachedDevices();
+            ListenForAntPlusData("");
+            Console.WriteLine("listening on connected devices");
+            Console.ReadKey();
+            
+
             /*byte ucChannelType = CHANNEL_TYPE_INVALID;
 
             if (args.Length > 0)
@@ -93,7 +147,7 @@ namespace ANT_Console_Demo
             {
                 Console.WriteLine("Demo failed with exception: \n" + ex.Message);
             }*/
-
+            /*
             var client = new SocketIOClient.SocketIO("https://app-pre.aplifitplay.com/lessons");
 
             client.OnConnected += async (sender, e) =>
@@ -105,29 +159,29 @@ namespace ANT_Console_Demo
             {
                 Console.WriteLine($"Server response: {response}");
             });
-
+            
 
 
             Console.WriteLine("Trying to connect async");
             await client.ConnectAsync();
-            Console.ReadKey();
-/*            Console.WriteLine("creating device");
-            ANT_Device device0 = new ANT_Device();   // Create a device instance using the automatic constructor (automatic detection of USB device number and baud rate)
-                                                     // device0.deviceResponse += new ANT_Device.dDeviceResponseHandler(DeviceResponse);    // Add device response function to receive protocol event messages
-            Console.WriteLine("created device");
-            ANT_Channel channel0 = device0.getChannel(0);    // Get channel from ANT device
-            channel0.channelResponse += new dChannelResponseHandler(ChannelResponse);  // Add channel response function to receive channel event messages
+            Console.ReadKey(); */
+            /*            Console.WriteLine("creating device");
+                        ANT_Device device0 = new ANT_Device();   // Create a device instance using the automatic constructor (automatic detection of USB device number and baud rate)
+                                                                 // device0.deviceResponse += new ANT_Device.dDeviceResponseHandler(DeviceResponse);    // Add device response function to receive protocol event messages
+                        Console.WriteLine("created device");
+                        ANT_Channel channel0 = device0.getChannel(0);    // Get channel from ANT device
+                        channel0.channelResponse += new dChannelResponseHandler(ChannelResponse);  // Add channel response function to receive channel event messages
 
-            channel0.assignChannel(ANT_ReferenceLibrary.ChannelType.BASE_Slave_Receive_0x00, 0, 500);
-            channel0.setChannelID(0, false, 0, 0);
-            channel0.setChannelFreq(57);
-            channel0.setChannelPeriod(8070);
-            byte[] userNetworkKey = { 0xB9, 0xA5, 0x21, 0xFB, 0xBD, 0x72, 0xC3, 0x45 };
-            //byte[] userNetworkKey = { 0, 0, 0, 0, 0, 0, 0, 0 };
-            device0.setNetworkKey(0, userNetworkKey);
-            Console.WriteLine("opening channel");
-            channel0.openChannel();
-            Console.WriteLine("channel opened"); */
+                        channel0.assignChannel(ANT_ReferenceLibrary.ChannelType.BASE_Slave_Receive_0x00, 0, 500);
+                        channel0.setChannelID(0, false, 0, 0);
+                        channel0.setChannelFreq(57);
+                        channel0.setChannelPeriod(8070);
+                        byte[] userNetworkKey = { 0xB9, 0xA5, 0x21, 0xFB, 0xBD, 0x72, 0xC3, 0x45 };
+                        //byte[] userNetworkKey = { 0, 0, 0, 0, 0, 0, 0, 0 };
+                        device0.setNetworkKey(0, userNetworkKey);
+                        Console.WriteLine("opening channel");
+                        channel0.openChannel();
+                        Console.WriteLine("channel opened"); */
         }
 
         static async Task SendDataToServer(SocketIOClient.SocketIO client)
@@ -164,7 +218,7 @@ namespace ANT_Console_Demo
             {
                 Console.WriteLine("Attempting to connect to an ANT USB device...");
                 device0 = new ANT_Device();   // Create a device instance using the automatic constructor (automatic detection of USB device number and baud rate)
-                device0.deviceResponse += new ANT_Device.dDeviceResponseHandler(DeviceResponse);    // Add device response function to receive protocol event messages
+                //device0.deviceResponse += new ANT_Device.dDeviceResponseHandler(DeviceResponse);    // Add device response function to receive protocol event messages
 
                 channel0 = device0.getChannel(USER_ANT_CHANNEL);    // Get channel from ANT device
                 channel0.channelResponse += new dChannelResponseHandler(ChannelResponse);  // Add channel response function to receive channel event messages
@@ -193,177 +247,7 @@ namespace ANT_Console_Demo
         // ucChannelType_:  ANT Channel Type. 0 = Master, 1 = Slave
         //                  If not specified, 2 is passed in as invalid.
         ////////////////////////////////////////////////////////////////////////////////
-        static void Start(byte ucChannelType_)
-        {
-            byte ucChannelType = ucChannelType_;
-            bDone = false;
-            bDisplay = true;
-            bBroadcasting = false;
-
-            PrintMenu();
-
-            // If a channel type has not been set at the command line,
-            // prompt the user to specify one now
-            do
-            {
-                if (ucChannelType == CHANNEL_TYPE_INVALID)
-                {
-                    Console.WriteLine("Channel Type? (Master = 0, Slave = 1)");
-                    try
-                    {
-                        ucChannelType = byte.Parse(Console.ReadLine());
-                    }
-                    catch (Exception)
-                    {
-                        ucChannelType = CHANNEL_TYPE_INVALID;
-                    }
-                }
-
-                if (ucChannelType == 0)
-                {
-                    channelType = ANT_ReferenceLibrary.ChannelType.BASE_Master_Transmit_0x10;
-                }
-                else if (ucChannelType == 1)
-                {
-                    channelType = ANT_ReferenceLibrary.ChannelType.BASE_Slave_Receive_0x00;
-                }
-                else
-                {
-                    ucChannelType = CHANNEL_TYPE_INVALID;
-                    Console.WriteLine("Error: Invalid channel type");
-                }
-            } while (ucChannelType == CHANNEL_TYPE_INVALID);
-
-            try
-            {
-                ConfigureANT();
-
-                while (!bDone)
-                {
-                    string command = Console.ReadLine();
-                    switch (command)
-                    {
-                        case "M":
-                        case "m":
-                            {
-                                PrintMenu();
-                                break;
-                            }
-                        case "Q":
-                        case "q":
-                            {
-                                // Quit
-                                Console.WriteLine("Closing Channel");
-                                bBroadcasting = false;
-                                channel0.closeChannel();
-                                break;
-                            }
-                        case "A":
-                        case "a":
-                            {
-                                // Send Acknowledged Data
-                                byte[] myTxBuffer = { 1, 2, 3, 4, 5, 6, 7, 8 };
-                                channel0.sendAcknowledgedData(myTxBuffer);
-                                break;
-                            }
-                        case "B":
-                        case "b":
-                            {
-                                // Send Burst Data (10 packets)
-                                byte[] myTxBuffer = new byte[8 * 10];
-                                for (byte i = 0; i < 8 * 10; i++)
-                                    myTxBuffer[i] = i;
-                                channel0.sendBurstTransfer(myTxBuffer);
-                                break;
-                            }
-
-                        case "R":
-                        case "r":
-                            {
-                                // Reset the system and start over the test
-                                ConfigureANT();
-                                break;
-                            }
-
-                        case "C":
-                        case "c":
-                            {
-                                // Request capabilities
-                                ANT_DeviceCapabilities devCapab = device0.getDeviceCapabilities(500);
-                                Console.Write(devCapab.printCapabilities() + Environment.NewLine);
-                                break;
-                            }
-                        case "V":
-                        case "v":
-                            {
-                                // Request version
-                                // As this is not available in all ANT parts, we should not wait for a response, so
-                                // we do not specify a timeout
-                                // The response - if available - will be processed in DeviceResponse
-                                device0.requestMessage(ANT_ReferenceLibrary.RequestMessageID.VERSION_0x3E);
-                                break;
-                            }
-                        case "S":
-                        case "s":
-                            {
-                                // Request channel status
-                                ANT_ChannelStatus chStatus = channel0.requestStatus(500);
-
-                                string[] allStatus = { "STATUS_UNASSIGNED_CHANNEL",
-                                                    "STATUS_ASSIGNED_CHANNEL",
-                                                    "STATUS_SEARCHING_CHANNEL",
-                                                    "STATUS_TRACKING_CHANNEL"};
-                                Console.WriteLine("STATUS: " + allStatus[(int)chStatus.BasicStatus]);
-                                break;
-                            }
-                        case "I":
-                        case "i":
-                            {
-                                // Request channel ID
-                                ANT_Response respChID = device0.requestMessageAndResponse(ANT_ReferenceLibrary.RequestMessageID.CHANNEL_ID_0x51, 500);
-                                ushort usDeviceNumber = (ushort)((respChID.messageContents[2] << 8) + respChID.messageContents[1]);
-                                byte ucDeviceType = respChID.messageContents[3];
-                                byte ucTransmissionType = respChID.messageContents[4];
-                                Console.WriteLine("CHANNEL ID: (" + usDeviceNumber.ToString() + "," + ucDeviceType.ToString() + "," + ucTransmissionType.ToString() + ")");
-                                break;
-                            }
-                        case "D":
-                        case "d":
-                            {
-                                bDisplay = !bDisplay;
-                                break;
-                            }
-                        case "U":
-                        case "u":
-                            {
-                                // Print out information about the device we are connected to
-                                Console.WriteLine("USB Device Description");
-
-                                // Retrieve info
-                                Console.WriteLine(String.Format("   VID: 0x{0:x}", device0.getDeviceUSBVID()));
-                                Console.WriteLine(String.Format("   PID: 0x{0:x}", device0.getDeviceUSBPID()));
-                                Console.WriteLine(String.Format("   Product Description: {0}", device0.getDeviceUSBInfo().printProductDescription()));
-                                Console.WriteLine(String.Format("   Serial String: {0}", device0.getDeviceUSBInfo().printSerialString()));
-                                break;
-                            }
-                        default:
-                            {
-                                break;
-                            }
-                    }
-                    System.Threading.Thread.Sleep(0);
-                }
-                // Clean up ANT
-                Console.WriteLine("Disconnecting module...");
-                ANT_Device.shutdownDeviceInstance(ref device0);  // Close down the device completely and completely shut down all communication
-                Console.WriteLine("Demo has completed successfully!");
-                return;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Demo failed: " + ex.Message + Environment.NewLine);
-            }
-        }
+        
 
         ////////////////////////////////////////////////////////////////////////////////
         // ConfigureANT
@@ -433,9 +317,14 @@ namespace ANT_Console_Demo
 
         static void ChannelResponse(ANT_Response response)
         {
-            Console.WriteLine("accepting response");
+            Consolee.WriteLine($"Timestamp: {DateTime.Now}");
+            Consolee.Flush();
+            Consolee.WriteLine("accepting response");
+            Consolee.WriteLine($"{response.responseID}");
+            //if(response.responseID == 64) { return; }
             try
             {
+                
                 switch ((ANT_ReferenceLibrary.ANTMessageID)response.responseID)
                 {
                     case ANT_ReferenceLibrary.ANTMessageID.RESPONSE_EVENT_0x40:
@@ -445,6 +334,12 @@ namespace ANT_Console_Demo
                                 case ANT_ReferenceLibrary.ANTEventID.EVENT_TX_0x03:
                                     {
                                         Console.WriteLine($"Recieved EVENT TX 0X03");
+                                        break;
+                                    }
+                                case ANT_ReferenceLibrary.ANTEventID.EVENT_RX_SEARCH_TIMEOUT_0x01:
+                                    {
+                                        Console.WriteLine("Search timed out, Restarting");
+                                        channel0.openChannel();
                                         break;
                                     }
                             }
@@ -459,24 +354,46 @@ namespace ANT_Console_Demo
                         {
                             if (true)
                             {
-                                /*if (response.isExtended()) // Check if we are dealing with an extended message
+                                
+                                var contents = response.getDataPayload();
+                                Consolee.WriteLine($"Data Recieved: {contents.Length}");
+                                if (contents[0] == 25)
                                 {
-                                    ANT_ChannelID chID = response.getDeviceIDfromExt();    // Channel ID of the device we just received a message from
-                                    Console.Write("Chan ID(" + chID.deviceNumber.ToString() + "," + chID.deviceTypeID.ToString() + "," + chID.transmissionTypeID.ToString() + ") - ");
-                                }*/
-
-                                /*if (response.responseID == (byte)ANT_ReferenceLibrary.ANTMessageID.BROADCAST_DATA_0x4E
-                                    || response.responseID == (byte)ANT_ReferenceLibrary.ANTMessageID.EXT_BROADCAST_DATA_0x5D)
-                                    Console.Write("Rx:(" + response.antChannel.ToString() + "): ");
-                                else if (response.responseID == (byte)ANT_ReferenceLibrary.ANTMessageID.ACKNOWLEDGED_DATA_0x4F
-                                    || response.responseID == (byte)ANT_ReferenceLibrary.ANTMessageID.EXT_ACKNOWLEDGED_DATA_0x5E)
-                                    Console.Write("Acked Rx:(" + response.antChannel.ToString() + "): ");
+                                    Consolee.WriteLine("reading fe trainer data");
+                                    byte byte5 = contents[5];
+                                    byte byte6 = contents[6];
+                                    byte firstFourBitsByte6 = (byte)(byte6 & 0x0F);
+                                    ushort combinedValue = (ushort)((firstFourBitsByte6 << 8) | byte5);
+                                    Consolee.WriteLine($"Power: {combinedValue}");
+                                    Consolee.WriteLine($"Cadence: {contents[2]}");
+                                } else if (contents[0] == 16)
+                                {
+                                    if (contents[1] < 19 || contents[1] > 25)
+                                    {
+                                        byte byte6 = contents[6];
+                                        byte byte7 = contents[7];
+                                        ushort combinedValue = (ushort)((byte7 << 8) | byte6);
+                                        Consolee.WriteLine($"Power: {combinedValue}");
+                                        Consolee.WriteLine($"Cadence: {contents[3]}");
+                                    }
+                                    else
+                                    {
+                                        Consolee.WriteLine("This is fitness equipment");
+                                    }
+                                    
+                                } else if (contents[0] == 0 || contents[0] == 128)
+                                {
+                                    Consolee.WriteLine($"bpm: {contents[7]}");
+                                }
                                 else
-                                    Console.Write("Burst(" + response.getBurstSequenceNumber().ToString("X2") + ") Rx:(" + response.antChannel.ToString() + "): ");
-
-                                Console.Write(BitConverter.ToString(response.getDataPayload()) + Environment.NewLine);  // Display data payload
-                                */
-                                Console.WriteLine($"Data Recieved: {response.getDataPayload()}");
+                                {
+                                    Consolee.WriteLine($"Contents: {BitConverter.ToString(contents)}");
+                                for (int i = 0; i < contents.Length; i++)
+                                {
+                                    Consolee.WriteLine($"{i}:{contents[i]}");
+                                }
+                                }
+                                
                             }
                             else
                             {
@@ -486,292 +403,22 @@ namespace ANT_Console_Demo
                             }
                             break;
                         }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////
-        // ChannelResponse
-        //
-        // Called whenever a channel event is recieved. 
-        // 
-        // response: ANT message
-        ////////////////////////////////////////////////////////////////////////////////
-        /*static void ChannelResponse(ANT_Response response)
-        {
-            try
-            {
-                switch ((ANT_ReferenceLibrary.ANTMessageID)response.responseID)
-                {
-                    case ANT_ReferenceLibrary.ANTMessageID.RESPONSE_EVENT_0x40:
-                        {
-                            switch (response.getChannelEventCode())
-                            {
-                                // This event indicates that a message has just been
-                                // sent over the air. We take advantage of this event to set
-                                // up the data for the next message period.   
-                                case ANT_ReferenceLibrary.ANTEventID.EVENT_TX_0x03:
-                                    {
-                                        txBuffer[0]++;  // Increment the first byte of the buffer
-
-                                        // Broadcast data will be sent over the air on
-                                        // the next message period
-                                        if (bBroadcasting)
-                                        {
-                                            channel0.sendBroadcastData(txBuffer);
-
-                                            if (bDisplay)
-                                            {
-                                                // Echo what the data will be over the air on the next message period
-                                                Console.WriteLine("Tx: (" + response.antChannel.ToString() + ")" + BitConverter.ToString(txBuffer));
-                                            }
-                                        }
-                                        else
-                                        {
-                                            string[] ac = { "|", "/", "_", "\\" };
-                                            Console.Write("Tx: " + ac[iIndex++] + "\r");
-                                            iIndex &= 3;
-                                        }
-                                        break;
-                                    }
-                                case ANT_ReferenceLibrary.ANTEventID.EVENT_RX_SEARCH_TIMEOUT_0x01:
-                                    {
-                                        Console.WriteLine("Search Timeout");
-                                        break;
-                                    }
-                                case ANT_ReferenceLibrary.ANTEventID.EVENT_RX_FAIL_0x02:
-                                    {
-                                        Console.WriteLine("Rx Fail");
-                                        break;
-                                    }
-                                case ANT_ReferenceLibrary.ANTEventID.EVENT_TRANSFER_RX_FAILED_0x04:
-                                    {
-                                        Console.WriteLine("Burst receive has failed");
-                                        break;
-                                    }
-                                case ANT_ReferenceLibrary.ANTEventID.EVENT_TRANSFER_TX_COMPLETED_0x05:
-                                    {
-                                        Console.WriteLine("Transfer Completed");
-                                        break;
-                                    }
-                                case ANT_ReferenceLibrary.ANTEventID.EVENT_TRANSFER_TX_FAILED_0x06:
-                                    {
-                                        Console.WriteLine("Transfer Failed");
-                                        break;
-                                    }
-                                case ANT_ReferenceLibrary.ANTEventID.EVENT_CHANNEL_CLOSED_0x07:
-                                    {
-                                        // This event should be used to determine that the channel is closed.
-                                        Console.WriteLine("Channel Closed");
-                                        Console.WriteLine("Unassigning Channel...");
-                                        if (channel0.unassignChannel(500))
-                                        {
-                                            Console.WriteLine("Unassigned Channel");
-                                            Console.WriteLine("Press enter to exit");
-                                            bDone = true;
-                                        }
-                                        break;
-                                    }
-                                case ANT_ReferenceLibrary.ANTEventID.EVENT_RX_FAIL_GO_TO_SEARCH_0x08:
-                                    {
-                                        Console.WriteLine("Go to Search");
-                                        break;
-                                    }
-                                case ANT_ReferenceLibrary.ANTEventID.EVENT_CHANNEL_COLLISION_0x09:
-                                    {
-                                        Console.WriteLine("Channel Collision");
-                                        break;
-                                    }
-                                case ANT_ReferenceLibrary.ANTEventID.EVENT_TRANSFER_TX_START_0x0A:
-                                    {
-                                        Console.WriteLine("Burst Started");
-                                        break;
-                                    }
-                                default:
-                                    {
-                                        Console.WriteLine("Unhandled Channel Event " + response.getChannelEventCode());
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-                    case ANT_ReferenceLibrary.ANTMessageID.BROADCAST_DATA_0x4E:
-                    case ANT_ReferenceLibrary.ANTMessageID.ACKNOWLEDGED_DATA_0x4F:
-                    case ANT_ReferenceLibrary.ANTMessageID.BURST_DATA_0x50:
-                    case ANT_ReferenceLibrary.ANTMessageID.EXT_BROADCAST_DATA_0x5D:
-                    case ANT_ReferenceLibrary.ANTMessageID.EXT_ACKNOWLEDGED_DATA_0x5E:
-                    case ANT_ReferenceLibrary.ANTMessageID.EXT_BURST_DATA_0x5F:
-                        {
-                            if (bDisplay)
-                            {
-                                if (response.isExtended()) // Check if we are dealing with an extended message
-                                {
-                                    ANT_ChannelID chID = response.getDeviceIDfromExt();    // Channel ID of the device we just received a message from
-                                    Console.Write("Chan ID(" + chID.deviceNumber.ToString() + "," + chID.deviceTypeID.ToString() + "," + chID.transmissionTypeID.ToString() + ") - ");
-                                }
-                                if (response.responseID == (byte)ANT_ReferenceLibrary.ANTMessageID.BROADCAST_DATA_0x4E
-                                    || response.responseID == (byte)ANT_ReferenceLibrary.ANTMessageID.EXT_BROADCAST_DATA_0x5D)
-                                    Console.Write("Rx:(" + response.antChannel.ToString() + "): ");
-                                else if (response.responseID == (byte)ANT_ReferenceLibrary.ANTMessageID.ACKNOWLEDGED_DATA_0x4F
-                                    || response.responseID == (byte)ANT_ReferenceLibrary.ANTMessageID.EXT_ACKNOWLEDGED_DATA_0x5E)
-                                    Console.Write("Acked Rx:(" + response.antChannel.ToString() + "): ");
-                                else
-                                    Console.Write("Burst(" + response.getBurstSequenceNumber().ToString("X2") + ") Rx:(" + response.antChannel.ToString() + "): ");
-
-                                Console.Write(BitConverter.ToString(response.getDataPayload()) + Environment.NewLine);  // Display data payload
-                            }
-                            else
-                            {
-                                string[] ac = { "|", "/", "_", "\\" };
-                                Console.Write("Rx: " + ac[iIndex++] + "\r");
-                                iIndex &= 3;
-                            }
-                            break;
-                        }
                     default:
                         {
-                            Console.WriteLine("Unknown Message " + response.responseID);
+                            Consolee.WriteLine($"Default case: {response.responseID}");
                             break;
                         }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Channel response processing failed with exception: " + ex.Message);
-            }
-        } */
-
-
-        ////////////////////////////////////////////////////////////////////////////////
-        // DeviceResponse
-        //
-        // Called whenever a message is received from ANT unless that message is a 
-        // channel event message. 
-        // 
-        // response: ANT message
-        ////////////////////////////////////////////////////////////////////////////////
-        static void DeviceResponse(ANT_Response response)
-        {
-            switch ((ANT_ReferenceLibrary.ANTMessageID)response.responseID)
-            {
-                case ANT_ReferenceLibrary.ANTMessageID.STARTUP_MESG_0x6F:
-                    {
-                        Console.Write("RESET Complete, reason: ");
-
-                        byte ucReason = response.messageContents[0];
-
-                        if (ucReason == (byte)ANT_ReferenceLibrary.StartupMessage.RESET_POR_0x00)
-                            Console.WriteLine("RESET_POR");
-                        if (ucReason == (byte)ANT_ReferenceLibrary.StartupMessage.RESET_RST_0x01)
-                            Console.WriteLine("RESET_RST");
-                        if (ucReason == (byte)ANT_ReferenceLibrary.StartupMessage.RESET_WDT_0x02)
-                            Console.WriteLine("RESET_WDT");
-                        if (ucReason == (byte)ANT_ReferenceLibrary.StartupMessage.RESET_CMD_0x20)
-                            Console.WriteLine("RESET_CMD");
-                        if (ucReason == (byte)ANT_ReferenceLibrary.StartupMessage.RESET_SYNC_0x40)
-                            Console.WriteLine("RESET_SYNC");
-                        if (ucReason == (byte)ANT_ReferenceLibrary.StartupMessage.RESET_SUSPEND_0x80)
-                            Console.WriteLine("RESET_SUSPEND");
-                        break;
-                    }
-                case ANT_ReferenceLibrary.ANTMessageID.VERSION_0x3E:
-                    {
-                        Console.WriteLine("VERSION: " + new ASCIIEncoding().GetString(response.messageContents));
-                        break;
-                    }
-                case ANT_ReferenceLibrary.ANTMessageID.RESPONSE_EVENT_0x40:
-                    {
-                        switch (response.getMessageID())
-                        {
-                            case ANT_ReferenceLibrary.ANTMessageID.CLOSE_CHANNEL_0x4C:
-                                {
-                                    if (response.getChannelEventCode() == ANT_ReferenceLibrary.ANTEventID.CHANNEL_IN_WRONG_STATE_0x15)
-                                    {
-                                        Console.WriteLine("Channel is already closed");
-                                        Console.WriteLine("Unassigning Channel...");
-                                        if (channel0.unassignChannel(500))
-                                        {
-                                            Console.WriteLine("Unassigned Channel");
-                                            Console.WriteLine("Press enter to exit");
-                                            bDone = true;
-                                        }
-                                    }
-                                    break;
-                                }
-                            case ANT_ReferenceLibrary.ANTMessageID.NETWORK_KEY_0x46:
-                            case ANT_ReferenceLibrary.ANTMessageID.ASSIGN_CHANNEL_0x42:
-                            case ANT_ReferenceLibrary.ANTMessageID.CHANNEL_ID_0x51:
-                            case ANT_ReferenceLibrary.ANTMessageID.CHANNEL_RADIO_FREQ_0x45:
-                            case ANT_ReferenceLibrary.ANTMessageID.CHANNEL_MESG_PERIOD_0x43:
-                            case ANT_ReferenceLibrary.ANTMessageID.OPEN_CHANNEL_0x4B:
-                            case ANT_ReferenceLibrary.ANTMessageID.UNASSIGN_CHANNEL_0x41:
-                                {
-                                    if (response.getChannelEventCode() != ANT_ReferenceLibrary.ANTEventID.RESPONSE_NO_ERROR_0x00)
-                                    {
-                                        Console.WriteLine(String.Format("Error {0} configuring {1}", response.getChannelEventCode(), response.getMessageID()));
-                                    }
-                                    break;
-                                }
-                            case ANT_ReferenceLibrary.ANTMessageID.RX_EXT_MESGS_ENABLE_0x66:
-                                {
-                                    if (response.getChannelEventCode() == ANT_ReferenceLibrary.ANTEventID.INVALID_MESSAGE_0x28)
-                                    {
-                                        Console.WriteLine("Extended messages not supported in this ANT product");
-                                        break;
-                                    }
-                                    else if (response.getChannelEventCode() != ANT_ReferenceLibrary.ANTEventID.RESPONSE_NO_ERROR_0x00)
-                                    {
-                                        Console.WriteLine(String.Format("Error {0} configuring {1}", response.getChannelEventCode(), response.getMessageID()));
-                                        break;
-                                    }
-                                    Console.WriteLine("Extended messages enabled");
-                                    break;
-                                }
-                            case ANT_ReferenceLibrary.ANTMessageID.REQUEST_0x4D:
-                                {
-                                    if (response.getChannelEventCode() == ANT_ReferenceLibrary.ANTEventID.INVALID_MESSAGE_0x28)
-                                    {
-                                        Console.WriteLine("Requested message not supported in this ANT product");
-                                        break;
-                                    }
-                                    break;
-                                }
-                            default:
-                                {
-                                    Console.WriteLine("Unhandled response " + response.getChannelEventCode() + " to message " + response.getMessageID()); break;
-                                }
-                        }
-                        break;
-                    }
+                Consolee.WriteLine(ex.ToString());
             }
         }
 
 
-        ////////////////////////////////////////////////////////////////////////////////
-        // PrintMenu
-        //
-        // Display demo menu
-        // 
-        ////////////////////////////////////////////////////////////////////////////////
-        static void PrintMenu()
-        {
-            // Print out options  
-            Console.WriteLine("M - Print this menu");
-            Console.WriteLine("A - Send Acknowledged message");
-            Console.WriteLine("B - Send Burst message");
-            Console.WriteLine("R - Reset");
-            Console.WriteLine("C - Request Capabilites");
-            Console.WriteLine("V - Request Version");
-            Console.WriteLine("I - Request Channel ID");
-            Console.WriteLine("S - Request Status");
-            Console.WriteLine("U - Request USB Descriptor");
-            Console.WriteLine("D - Toggle Display");
-            Console.WriteLine("Q - Quit");
-        }
+
+       
 
     }
 }
