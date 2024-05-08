@@ -13,6 +13,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Aplifit USB ANT", "AntServi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aplifit USB Config", "AntPlusConfig\Aplifit USB Config.csproj", "{390D1F91-9318-4A25-B3E5-68CA01EB3B60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aplifit ANT USB F", "Aplifit ANT USB F\Aplifit ANT USB F.csproj", "{74901B0C-FEDE-4791-9FC4-488DC88BC82B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{390D1F91-9318-4A25-B3E5-68CA01EB3B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{390D1F91-9318-4A25-B3E5-68CA01EB3B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{390D1F91-9318-4A25-B3E5-68CA01EB3B60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74901B0C-FEDE-4791-9FC4-488DC88BC82B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74901B0C-FEDE-4791-9FC4-488DC88BC82B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74901B0C-FEDE-4791-9FC4-488DC88BC82B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74901B0C-FEDE-4791-9FC4-488DC88BC82B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
