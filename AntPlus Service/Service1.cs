@@ -1,25 +1,21 @@
 ﻿using System;
-using System.Diagnostics;
 using System.ServiceProcess;
-using System.Threading;
 using System.Management;
 using ANT_Managed_Library;
 using System.IO;
 using Newtonsoft.Json;
-using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using Serilog;
+
 
 namespace AntPlus_Service
 {
     public partial class AntPlus_Service : ServiceBase
     {
-        private static EventLog eventLog;
         ManagementEventWatcher watcher;
         ManagementEventWatcher disconnectionWatcher;
-        private static string logName = "AplifitLog";
-        private static string logSource = "AplifitUSBANT";
-        private static string logFilePath = "ApliftUSBANT.log";
+        private static string logFilePath = "logs\\ApliftUSBANT-.log";
         private FileSystemWatcher configWatcher;
         private string configFilePath = @"config.txt";
         string installationDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -34,23 +30,22 @@ namespace AntPlus_Service
         string infPath = @"ant_usb2_drivers\ANT_LibUsb.inf";
         bool driverInstalled = false;
         static ANT_Channel[] channels = new ANT_Channel[8];
+        static Dictionary<uint, ANT_Channel[]> antDevices = new Dictionary<uint, ANT_Channel[]>();
 
         public AntPlus_Service()
         {
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Information()
+            .WriteTo.File(
+                Path.Combine(this.installationDirectory, AntPlus_Service.logFilePath),
+                rollingInterval: RollingInterval.Day,
+                retainedFileCountLimit: 7,
+                buffered: false)
+            .CreateLogger();
             AntPlus_Service.client = new SocketIOClient.SocketIO("https://app.aplifitplay.com/lessons");
+            //AntPlus_Service.client = new SocketIOClient.SocketIO("https://app-pre.aplifitplay.com/lessons");
             InitializeComponent();
-            AntPlus_Service.eventLog = new EventLog();
-            AntPlus_Service.logWriter = new StreamWriter(Path.Combine(this.installationDirectory, AntPlus_Service.logFilePath), true);
-            if (!EventLog.SourceExists(AntPlus_Service.logSource))
-            {
-                EventLog.CreateEventSource(AntPlus_Service.logSource, AntPlus_Service.logName);
-            }
-            else
-            {
-                AntPlus_Service.logName = EventLog.LogNameFromSourceName(logSource, ".");
-            }
-            AntPlus_Service.eventLog.Source = AntPlus_Service.logSource;
-            AntPlus_Service.eventLog.Log = AntPlus_Service.logName;
+
             ReadConfigFile();
             //ReadConfigFile();
             /*string query = $"SELECT * FROM Win32_PnPEntity WHERE DeviceID LIKE '%{hardwareId}%'";
@@ -96,16 +91,14 @@ namespace AntPlus_Service
             watcher.EventArrived += new EventArrivedEventHandler(DeviceAttachedEvent);
             watcher.Start();
 
-            //AntPlus_Service.eventLog.WriteEntry("Service started successfully", EventLogEntryType.Information);
-            AntPlus_Service.logWriter.WriteLine("Service Started Successfully: Latest");
-            AntPlus_Service.logWriter.Flush();
+            Log.Information("Service Started Successfully: Latest");
         }
 
         protected override void OnStop()
         {
             this.watcher.Stop();
-            AntPlus_Service.logWriter.WriteLine("Service Stopped Successfully");
-            AntPlus_Service.logWriter.Flush();
+            this.disconnectionWatcher.Stop();
+            Log.Information("Service Stopped Successfully");
         }
 
         private static void HandleAttachedDevices()
@@ -118,17 +111,15 @@ namespace AntPlus_Service
                 // Filter for devices with the ANT+ VID (and optionally PID)if (deviceId.Contains(antVid))
                 if(deviceId.Contains("VID_0FCF") && deviceId.Contains("PID_1009"))
                 {
-                    AntPlus_Service.logWriter.WriteLine($"Device Detected: (ID: {deviceId})");
-                    AntPlus_Service.logWriter.Flush();
+                    Log.Information($"Device Detected: (ID: {deviceId})");
                     ListenForAntPlusData(deviceId);
                     isDeviceFound = true;
-                    break;
+                    //break;
                 }
             }
             if (!isDeviceFound)
             {
-                AntPlus_Service.logWriter.WriteLine("No Device Detected, Setting to Null");
-                AntPlus_Service.logWriter.Flush();
+                Log.Information("No Device Detected, Setting to Null");
                 device = null;
             }
         }
@@ -141,15 +132,14 @@ namespace AntPlus_Service
 
             if(deviceId.Contains("VID_0FCF") && deviceId.Contains("PID_1009"))
             {
-                if (device != null)
+                /*if (device != null)
                 {
-                    AntPlus_Service.logWriter.WriteLine("Device is not null, returning");
-                    AntPlus_Service.logWriter.Flush();
+                    Log.Information("Device is not null, returning");
+                    
                     return;
-                }
-                
-                AntPlus_Service.logWriter.WriteLine($"Device attached: {deviceDescription} (ID: {deviceId})");
-                AntPlus_Service.logWriter.Flush();
+                }*/
+
+                Log.Information($"Device attached: {deviceDescription} (ID: {deviceId})");
                 ListenForAntPlusData(deviceId);
             }
         }
@@ -160,23 +150,56 @@ namespace AntPlus_Service
             try
             {
                 ManagementBaseObject targetInstance = (ManagementBaseObject)e.NewEvent["TargetInstance"];
-                string deviceId = (string)targetInstance["DeviceID"];
-                string deviceDescription = (string)targetInstance["Description"];
+                string deviceDescription = (string)targetInstance["DeviceID"];
 
-                if (deviceId.Contains("VID_0FCF") && deviceId.Contains("PID_1009"))
+                if (deviceDescription.Contains("VID_0FCF") && deviceDescription.Contains("PID_1009"))
                 {
-                    AntPlus_Service.logWriter.WriteLine($"Device detached: {deviceDescription} (ID: {deviceId})");
-                    AntPlus_Service.logWriter.Flush();
-                    HandleAttachedDevices();
+                    Log.Information($"Device detached: {deviceDescription}");
+
+                    string[] parts = deviceDescription.Split('\\');
+                    string lastPart = parts[parts.Length - 1];
+                    if (uint.TryParse(lastPart, out uint deviceId))
+                    {
+                        if (antDevices.ContainsKey(deviceId))
+                        {
+                            antDevices.Remove(deviceId);
+                            Log.Information($"Device with Id {deviceDescription} is successfully removed.");
+                            
+                        }
+                        else
+                        {
+                            Log.Information($"Device {deviceDescription} was not found in connected devices.");
+                            
+                        }
+                    }
+                    else
+                    {
+                        Log.Information($"Failed to extract deviceId from {deviceDescription})");
+                        
+                    }
+         
                 }
             }catch (Exception ex)
             {
-                AntPlus_Service.logWriter.WriteLine($"Error occured while reading disconnected device info: {ex.Message}");
-                AntPlus_Service.logWriter.Flush();
+                Log.Information($"Error occured while reading disconnected device info: {ex.Message}");
+                
             }
 
         }
-        static void ListenForAntPlusData(string deviceId)
+
+        static bool AddAntDevice(ANT_Device device)
+        {
+            uint deviceId = device.getSerialNumber();
+            if (!antDevices.ContainsKey(deviceId))
+            {
+                antDevices[deviceId] = new ANT_Channel[8];
+                return true;
+            }
+            Log.Information($"device with id {deviceId} already exists");
+            return false;
+        }
+
+        static void ListenForAntPlusData(string deviceDescription)
         {
 
             try
@@ -187,52 +210,52 @@ namespace AntPlus_Service
                 byte[] userNetworkKey = { 0xB9, 0xA5, 0x21, 0xFB, 0xBD, 0x72, 0xC3, 0x45 };
                 //byte[] userNetworkKey = { 0, 0, 0, 0, 0, 0, 0, 0 };
                 device.setNetworkKey(0, userNetworkKey);
+                AddAntDevice(device);
+                uint deviceId = device.getSerialNumber();
                 for(int i = 0; i < 8; i++)
                 {
-                    channels[i] = device.getChannel(i);    // Get channel from ANT device
-                    channels[i].channelResponse += new dChannelResponseHandler(ChannelResponse);  // Add channel response function to receive channel event messages
-                                                                                                  //channel.rawChannelResponse += new dRawChannelResponseHandler(rawChannelResponse);
-                    channels[i].assignChannel(ANT_ReferenceLibrary.ChannelType.BASE_Slave_Receive_0x00, 0, 500);
-                    channels[i].setChannelID(0, false, 0, 0);
-                    channels[i].setChannelFreq(57);
-                    channels[i].setChannelPeriod(8070);
+                    antDevices[deviceId][i] = device.getChannel(i);    // Get channel from ANT device
+                    antDevices[deviceId][i].channelResponse += new dChannelResponseHandler(ChannelResponse);  // Add channel response function to receive channel event messages
+                                                                                                              //channel.rawChannelResponse += new dRawChannelResponseHandler(rawChannelResponse);
+                    antDevices[deviceId][i].assignChannel(ANT_ReferenceLibrary.ChannelType.BASE_Slave_Receive_0x00, 0, 500);
+                    antDevices[deviceId][i].setChannelID(0, false, 0, 0);
+                    antDevices[deviceId][i].setChannelFreq(57);
+                    antDevices[deviceId][i].setChannelPeriod(8070);
 
                     var timeout = 2.5 / 2.5;
                     int timeoutValue = (int)timeout;
-                    channels[i].setChannelSearchTimeout((byte)timeoutValue);
-                    channels[i].openChannel();
+                    antDevices[deviceId][i].setChannelSearchTimeout((byte)timeoutValue);
+                    antDevices[deviceId][i].openChannel();
                 }
                 
                 //AntPlus_Service.eventLog.WriteEntry("Opened channel, Ready to Listen");
-                AntPlus_Service.logWriter.WriteLine("Opened channel, Ready to Listen");
-                AntPlus_Service.logWriter.Flush();
-                AntPlus_Service.logWriter.WriteLine(device);
-                AntPlus_Service.logWriter.Flush();
+                Log.Information("Opened channel, Ready to Listen");
+                
+                Log.Information(device.ToString());
+                
             }
             catch(Exception e)
             {
-                AntPlus_Service.logWriter.WriteLine($"Listening on device failed with error {e.Message}");
-                AntPlus_Service.logWriter.Flush();
+                Log.Information($"Listening on device failed with error {e.Message}");
+                
             }
         }
 
         static void ResetChannel(byte channelNo)
         {
-            ANT_Channel channel = channels[channelNo];
-            channel.assignChannel(ANT_ReferenceLibrary.ChannelType.BASE_Slave_Receive_0x00, 0, 500);
-            channel.setChannelID(0, false, 0, 0);
-            channel.setChannelFreq(57);
-            channel.setChannelPeriod(8070);
-            byte[] userNetworkKey = { 0xB9, 0xA5, 0x21, 0xFB, 0xBD, 0x72, 0xC3, 0x45 };
-            //byte[] userNetworkKey = { 0, 0, 0, 0, 0, 0, 0, 0 };
-            //device.setNetworkKey(0, userNetworkKey);
-            var timeout = 2.5 / 2.5;
-            int timeoutValue = (int)timeout;
-            channel.setChannelSearchTimeout((byte)timeoutValue);
-            channel.openChannel();
-            //AntPlus_Service.eventLog.WriteEntry("Opened channel, Ready to Listen");
-            //AntPlus_Service.logWriter.WriteLine("Resetted channel, Ready to Listen");
-            //AntPlus_Service.logWriter.Flush();
+            foreach (var kvp in antDevices)
+            {
+                ANT_Channel channel = kvp.Value[channelNo];
+                channel.assignChannel(ANT_ReferenceLibrary.ChannelType.BASE_Slave_Receive_0x00, 0, 500);
+                channel.setChannelID(0, false, 0, 0);
+                channel.setChannelFreq(57);
+                channel.setChannelPeriod(8070);
+                byte[] userNetworkKey = { 0xB9, 0xA5, 0x21, 0xFB, 0xBD, 0x72, 0xC3, 0x45 };
+                var timeout = 2.5 / 2.5;
+                int timeoutValue = (int)timeout;
+                channel.setChannelSearchTimeout((byte)timeoutValue);
+                channel.openChannel();
+            }
         }
 
         static async void ChannelResponse(ANT_Response response)
@@ -248,6 +271,7 @@ namespace AntPlus_Service
                                 case ANT_ReferenceLibrary.ANTEventID.EVENT_RX_SEARCH_TIMEOUT_0x01:
                                     {
                                         //channel.openChannel();
+                                        
                                         ResetChannel(response.antChannel);
                                         break;
                                     }
@@ -265,12 +289,12 @@ namespace AntPlus_Service
                             var did = 0;
                             if (response.isExtended())
                             {
-                                AntPlus_Service.logWriter.WriteLine("Message is Extended");
+                                Log.Information("Message is Extended");
                                 did = response.getDeviceIDfromExt().deviceNumber;
                             }
                             else
                             {
-                                AntPlus_Service.logWriter.WriteLine("Message is not Extended");
+                                Log.Information("Message is not Extended");
                             }
                             if (contents[0] == 0 || contents[0] == 128 || contents[0] == 2 || contents[0] == 4 || contents[0] == 130 || contents[0] == 132)
                             {
@@ -359,23 +383,23 @@ namespace AntPlus_Service
                                 }
                                 else
                                 {
-                                    AntPlus_Service.logWriter.WriteLine("None Relevant Data Recievved");
-                                    AntPlus_Service.logWriter.Flush();
+                                    Log.Information("None Relevant Data Recievved");
+                                    
                                     var _contents = response.getDataPayload();
-                                    AntPlus_Service.logWriter.WriteLine($"Page No: {_contents[0]}");
-                                    AntPlus_Service.logWriter.Flush();
-                                    AntPlus_Service.logWriter.WriteLine($"Other Values: {_contents[1]}, {_contents[2]}, {_contents[3]}, {_contents[4]},{_contents[5]},{_contents[6]},{_contents[7]},");
-                                    AntPlus_Service.logWriter.Flush();
+                                    Log.Information($"Page No: {_contents[0]}");
+                                    
+                                    Log.Information($"Other Values: {_contents[1]}, {_contents[2]}, {_contents[3]}, {_contents[4]},{_contents[5]},{_contents[6]},{_contents[7]},");
+                                    
                                 }
                             }else
                             {
-                                AntPlus_Service.logWriter.WriteLine("None Relevant Data Recievved");
-                                AntPlus_Service.logWriter.Flush();
+                                Log.Information("None Relevant Data Recievved");
+                                
                                 var _contents = response.getDataPayload();
-                                AntPlus_Service.logWriter.WriteLine($"Page No: {_contents[0]}");
-                                AntPlus_Service.logWriter.Flush();
-                                AntPlus_Service.logWriter.WriteLine($"Other Values: {_contents[1]}, {_contents[2]}, {_contents[3]}, {_contents[4]},{_contents[5]},{_contents[6]},{_contents[7]},");
-                                AntPlus_Service.logWriter.Flush();
+                                Log.Information($"Page No: {_contents[0]}");
+                                
+                                Log.Information($"Other Values: {_contents[1]}, {_contents[2]}, {_contents[3]}, {_contents[4]},{_contents[5]},{_contents[6]},{_contents[7]},");
+                                
                             }
                             break;
                         }
@@ -383,8 +407,8 @@ namespace AntPlus_Service
             }
             catch (Exception ex)
             {
-                AntPlus_Service.logWriter.WriteLine($"Channel response processing failed with error {ex.Message}");
-                AntPlus_Service.logWriter.Flush();
+                Log.Information($"Channel response processing failed with error {ex.Message}");
+                
             }
         }
 
@@ -397,18 +421,11 @@ namespace AntPlus_Service
                 string[] parts = configData.Split('\n');
                 AntPlus_Service.roomNo = int.Parse(parts[0]);
                 AntPlus_Service.groupNo = int.Parse(parts[1]);
-                /*this.channelFreq = int.Parse(parts[1]);
-                this.networkNumber = int.Parse(parts[1]); */
             }
             catch (Exception ex)
             {
-                AntPlus_Service.logWriter.WriteLine($"Error Reading Config File: {ex.Message}");
-                AntPlus_Service.logWriter.Flush();
-                /*using (EventLog eventLog = new EventLog(AntPlus_Service.logName))
-                {
-                    eventLog.Source = AntPlus_Service.logSource;
-                    eventLog.WriteEntry($"Error Reading Config File: {ex.Message}", EventLogEntryType.Error);
-                }*/
+                Log.Information($"Error Reading Config File: {ex.Message}");
+                
             }
         }
 
@@ -420,76 +437,19 @@ namespace AntPlus_Service
                 {
                     await AntPlus_Service.client.ConnectAsync();
                 }
-                AntPlus_Service.logWriter.WriteLine($"Trying to send Data: {jsonData}");
-                AntPlus_Service.logWriter.Flush();
-                /*using (EventLog eventLog = new EventLog(AntPlus_Service.logName))
-                {
-                    eventLog.Source = AntPlus_Service.logSource;
-                    eventLog.WriteEntry($"Trying to send Data: {jsonData}", EventLogEntryType.Information);
-                }*/
+                Log.Information($"Trying to send Data: {jsonData}");
+                
                 await AntPlus_Service.client.EmitAsync("antenna-data", response => {
-                    AntPlus_Service.logWriter.WriteLine($"Data sent, recieved response: {response}");
-                    AntPlus_Service.logWriter.Flush();
-                    /*using (EventLog eventLog = new EventLog(AntPlus_Service.logName))
-                    {
-                        eventLog.Source = AntPlus_Service.logSource;
-                        eventLog.WriteEntry($"Data sent, recieved response: {response}", EventLogEntryType.Information);
-                    }*/
+                    Log.Information($"Data sent, recieved response: {response}");
+                    
                 }, jsonData);
 
             }
             catch (Exception ex)
             {
-                AntPlus_Service.logWriter.WriteLine($"Error Sending Data: {jsonData}, Error: {ex.Message}");
-                AntPlus_Service.logWriter.Flush();
-                /*using (EventLog eventLog = new EventLog(AntPlus_Service.logName))
-                {
-                    eventLog.Source = AntPlus_Service.logSource;
-                    eventLog.WriteEntry($"Error Sending Data: {jsonData}, Error: {ex.Message}", EventLogEntryType.Error);
-                }*/
+                Log.Information($"Error Sending Data: {jsonData}, Error: {ex.Message}");
+                
             }
-        }
-
-        private static async void UploadData(int dtid, string data)
-        {
-            var eventData = new
-            {
-                roomNo = AntPlus_Service.roomNo,
-                groupNo = AntPlus_Service.groupNo,
-                deviceId = dtid,
-                value = data,
-                date = DateTime.Now,
-            };
-            string jsonData = JsonConvert.SerializeObject(eventData);
-            try
-            {
-                if (!AntPlus_Service.client.Connected)
-                {
-                    await AntPlus_Service.client.ConnectAsync();
-                }
-                using (EventLog eventLog = new EventLog(AntPlus_Service.logName))
-                {
-                    eventLog.Source = AntPlus_Service.logSource;
-                    eventLog.WriteEntry($"Trying to send Data: {jsonData}", EventLogEntryType.Information);
-                }
-                await AntPlus_Service.client.EmitAsync("antenna-data", response => {
-                    using (EventLog eventLog = new EventLog(AntPlus_Service.logName))
-                    {
-                        eventLog.Source = AntPlus_Service.logSource;
-                        eventLog.WriteEntry($"Data sent, recieved response: {response}", EventLogEntryType.Information);
-                    }
-                }, jsonData);
-
-            }
-            catch (Exception ex)
-            {
-                using (EventLog eventLog = new EventLog(AntPlus_Service.logName))
-                {
-                    eventLog.Source = AntPlus_Service.logSource;
-                    eventLog.WriteEntry($"Error Sending Data: {jsonData}, Error: {ex.Message}", EventLogEntryType.Error);
-                }
-            }
-            
         }
 
         private void OnConfigChange(object sender, FileSystemEventArgs e)
@@ -497,37 +457,12 @@ namespace AntPlus_Service
             ReadConfigFile();
         }
 
-        public static string ExceptionDataToString(Exception ex)
-        {
-            if (ex.Data == null || ex.Data.Count == 0)
-            {
-                return "No additional data.";
-            }
-            StringBuilder sb = new StringBuilder();
-            foreach (System.Collections.DictionaryEntry entry in ex.Data)
-            {
-                sb.AppendFormat("{0}: {1}{2}", entry.Key, entry.Value, Environment.NewLine);
-            }
-            return sb.ToString();
-        }
-
-        public static string ExtractDeviceId(string deviceId)
-        {
-            char[] separators = { '\\' }; // Define separator as '\'
-            string[] parts = deviceId.Split(separators, StringSplitOptions.RemoveEmptyEntries); // Split the input string
-
-            // Get the last part of the resulting array
-            string desiredPart = parts[parts.Length - 1];
-
-            return desiredPart;
-        }
-
         static void rawChannelResponse(ANT_Device.ANTMessage message, ushort msize)
         {
             int id = message.msgID;
             byte[] contents = message.ucharBuf;
-            AntPlus_Service.logWriter.WriteLine($"recieved response with id {id}");
-            AntPlus_Service.logWriter.Flush();
+            Log.Information($"recieved response with id {id}");
+            
             try
             {
                 if (id == 64)
@@ -551,18 +486,18 @@ namespace AntPlus_Service
                     {
                         deviceNum = ((contents[6] & 0xff) << 24) + ((contents[5] & 0xff) << 16) + ((contents[11] & 0xff) << 8) + (contents[10] & 0xff);
                         Console.WriteLine($"Extended Device Num: {deviceNum}");
-                        AntPlus_Service.logWriter.WriteLine($"Extended Device Num: {deviceNum}");
-                        AntPlus_Service.logWriter.Flush();
+                        Log.Information($"Extended Device Num: {deviceNum}");
+                        
                     }
                     else
                     {
                         deviceNum = ((contents[11] & 0xff) << 8) + (contents[10] & 0xff);
-                        AntPlus_Service.logWriter.WriteLine($"Device Num: {deviceNum}");
-                        AntPlus_Service.logWriter.Flush();
+                        Log.Information($"Device Num: {deviceNum}");
+                        
                     }
                     int pageNo = contents[1];
-                    AntPlus_Service.logWriter.WriteLine($"Page No Recieved {pageNo}");
-                    AntPlus_Service.logWriter.Flush();
+                    Log.Information($"Page No Recieved {pageNo}");
+                    
                     List<int> validPageNumbers = new List<int> { 0, 128, 2, 4, 130, 132 };
                     if (validPageNumbers.Contains(pageNo))
                     {
@@ -652,44 +587,44 @@ namespace AntPlus_Service
                         }
                         else
                         {
-                            AntPlus_Service.logWriter.WriteLine("None Relevant Data Recieved");
+                            Log.Information("None Relevant Data Recieved");
                             string combinedContents = string.Join(", ", contents.Select(b => b.ToString()));
-                            AntPlus_Service.logWriter.WriteLine($"Page No: {contents[1]}");
-                            AntPlus_Service.logWriter.WriteLine($"Other Values: {combinedContents}");
-                            AntPlus_Service.logWriter.Flush();
+                            Log.Information($"Page No: {contents[1]}");
+                            Log.Information($"Other Values: {combinedContents}");
+                            
                         }
                     }
                     else
                     {
-                        AntPlus_Service.logWriter.WriteLine($"None Relevant Data Recieved");
+                        Log.Information($"None Relevant Data Recieved");
                         string combinedContents = string.Join(", ", contents.Select(b => b.ToString()));
-                        AntPlus_Service.logWriter.WriteLine($"Page No: {contents[1]}");
-                        AntPlus_Service.logWriter.WriteLine($"Other Values: {combinedContents}");
-                        AntPlus_Service.logWriter.Flush();
+                        Log.Information($"Page No: {contents[1]}");
+                        Log.Information($"Other Values: {combinedContents}");
+                        
                     }
                 }
                 else
                 {
-                    AntPlus_Service.logWriter.WriteLine($"Invalid Message Id Recieved: {id}");
+                    Log.Information($"Invalid Message Id Recieved: {id}");
                     string combinedContents = string.Join(", ", contents.Select(b => b.ToString()));
-                    AntPlus_Service.logWriter.WriteLine($"Page No: {contents[1]}");
-                    AntPlus_Service.logWriter.WriteLine($"Other Values: {combinedContents}");
-                    AntPlus_Service.logWriter.Flush();
+                    Log.Information($"Page No: {contents[1]}");
+                    Log.Information($"Other Values: {combinedContents}");
+                    
                 }
 
             }
             catch (Exception ex)
             {
-                AntPlus_Service.logWriter.WriteLine($"Channel response processing failed with error {ex.Message}");
-                AntPlus_Service.logWriter.Flush();
+                Log.Information($"Channel response processing failed with error {ex.Message}");
+                
             }
         }
 
         static void LogChannelResponse(byte[] contents)
         {
             string combinedContents = string.Join(", ", contents.Select(b => b.ToString()));
-            AntPlus_Service.logWriter.WriteLine($"Contents: {combinedContents}");
-            AntPlus_Service.logWriter.Flush();
+            Log.Information($"Contents: {combinedContents}");
+            
         }
     }
 }

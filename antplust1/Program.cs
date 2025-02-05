@@ -1,23 +1,4 @@
-﻿/*
-This software is subject to the license described in the License.txt file
-included with this software distribution. You may not use this file except
-in compliance with this license.
-
-Copyright (c) Dynastream Innovations Inc. 2016
-All rights reserved.
-*/
-
-//////////////////////////////////////////////////////////////////////////
-// To use the managed library, you must:
-// 1. Import ANT_NET.dll as a reference
-// 2. Reference the ANT_Managed_Library namespace
-// 3. Include the following files in the working directory of your application:
-//  - DSI_CP310xManufacturing_3_1.dll
-//  - DSI_SiUSBXp_3_1.dll
-//  - ANT_WrappedLib.dll
-//  - ANT_NET.dll
-//////////////////////////////////////////////////////////////////////////
-
+﻿
 #define ENABLE_EXTENDED_MESSAGES // Un - coment to enable extended messages
 
 using System;
@@ -51,6 +32,7 @@ namespace ANT_Console_Demo
         static ANT_Device device0;
         static ANT_Channel channel0;
         static ANT_Channel[] channels = new ANT_Channel[8];
+        static Dictionary<string, ANT_Channel[]> antDevices = new Dictionary<string, ANT_Channel[]>();
         static ANT_ReferenceLibrary.ChannelType channelType;
         static byte[] txBuffer = { 0, 0, 0, 0, 0, 0, 0, 0 };
         static bool bDone;
@@ -58,6 +40,18 @@ namespace ANT_Console_Demo
         static bool bBroadcasting;
         static int iIndex = 0;
         private static StreamWriter Consolee;
+
+        // Method to add a new ANT device with 8 channels
+        static bool AddAntDevice(string deviceId)
+        {
+            if (!antDevices.ContainsKey(deviceId))
+            {
+                antDevices[deviceId] = new ANT_Channel[8];
+                return true;
+            }
+            Console.WriteLine($"device with id {deviceId} already exists");
+            return false;
+        }
 
 
         static void ListenForAntPlusData(string deviceDescription)
@@ -67,21 +61,24 @@ namespace ANT_Console_Demo
                 device0 = new ANT_Device();   // Create a device instance using the automatic constructor (automatic detection of USB device number and baud rate)
                 // device0.deviceResponse += new ANT_Device.dDeviceResponseHandler(DeviceResponse);    // Add device response function to receive protocol event messages
                 device0.enableRxExtendedMessages(true);
+                Console.WriteLine($"Listening on device with id: {deviceDescription}");
+                Console.WriteLine($"Listening on device with id: {device0.getSerialNumber()}");
                 byte[] userNetworkKey = { 0xB9, 0xA5, 0x21, 0xFB, 0xBD, 0x72, 0xC3, 0x45 };
                 device0.setNetworkKey(0, userNetworkKey);
+                AddAntDevice(deviceDescription);
                 for (int i = 0; i < 8; i++)
                 {
-                    channels[i] = device0.getChannel(i);    // Get channel from ANT device
-                    channels[i].channelResponse += new dChannelResponseHandler(ChannelResponse);  // Add channel response function to receive channel event messages
-                                                                                                  //channel0.rawChannelResponse += new dRawChannelResponseHandler(rawChannelResponse);
-                    channels[i].assignChannel(ANT_ReferenceLibrary.ChannelType.BASE_Slave_Receive_0x00, 0, 500);
-                    channels[i].setChannelID(0, false, 0, 0);
-                    channels[i].setChannelFreq(57);
-                    channels[i].setChannelPeriod(8050);
+                    antDevices[deviceDescription][i] = device0.getChannel(i);    // Get channel from ANT device
+                    antDevices[deviceDescription][i].channelResponse += new dChannelResponseHandler(ChannelResponse);  // Add channel response function to receive channel event messages
+                                                                                                                       //channel0.rawChannelResponse += new dRawChannelResponseHandler(rawChannelResponse);
+                    antDevices[deviceDescription][i].assignChannel(ANT_ReferenceLibrary.ChannelType.BASE_Slave_Receive_0x00, 0, 500);
+                    antDevices[deviceDescription][i].setChannelID(0, false, 0, 0);
+                    antDevices[deviceDescription][i].setChannelFreq(57);
+                    antDevices[deviceDescription][i].setChannelPeriod(8050);
                     var timeout = 2.5 / 2.5;
                     int timeoutValue = (int)timeout;
-                    channels[i].setChannelSearchTimeout((byte)timeoutValue);
-                    channels[i].openChannel();
+                    antDevices[deviceDescription][i].setChannelSearchTimeout((byte)timeoutValue);
+                    antDevices[deviceDescription][i].openChannel();
                 }
             }
             catch (Exception e)
@@ -99,8 +96,9 @@ namespace ANT_Console_Demo
                 // Filter for devices with the ANT+ VID (and optionally PID)if (deviceId.Contains(antVid))
                 if (deviceId.Contains("VID_0FCF") && deviceId.Contains("PID_1009"))
                 {
-                    ListenForAntPlusData("");
-                    Console.WriteLine($"Listening on device with id: {deviceId}");
+                    Console.WriteLine($"Trying Listening on device with id: {deviceId}");
+                    ListenForAntPlusData(deviceId);
+                    
                 }
             }
         }
@@ -109,7 +107,7 @@ namespace ANT_Console_Demo
         {
             Consolee = new StreamWriter("aplifit.log", true);
             //HandleAttachedDevices();
-            ListenForAntPlusData("");
+            HandleAttachedDevices();
             Console.WriteLine("listening on connected devices");
             Console.ReadKey();
            
@@ -156,7 +154,7 @@ namespace ANT_Console_Demo
                                     }
                                 case ANT_ReferenceLibrary.ANTEventID.EVENT_RX_SEARCH_TIMEOUT_0x01:
                                     {
-                                        //Console.WriteLine("Search timed out, Restarting");
+                                        Console.WriteLine("Search timed out, Restarting");
                                         ResetChannel(response.antChannel);
                                         break;
                                     }
@@ -304,19 +302,23 @@ namespace ANT_Console_Demo
         }
         static void ResetChannel(byte channelNo)
         {
-            //Console.WriteLine($"resetting channel: {channelNo}");
-            ANT_Channel channel0 = channels[channelNo];
-            channel0.assignChannel(ANT_ReferenceLibrary.ChannelType.BASE_Slave_Receive_0x00, 0, 500);
-            channel0.setChannelID(0, false, 0, 0);
-            channel0.setChannelFreq(57);
-            channel0.setChannelPeriod(8050);
-            byte[] userNetworkKey = { 0xB9, 0xA5, 0x21, 0xFB, 0xBD, 0x72, 0xC3, 0x45 };
-            //byte[] userNetworkKey = { 0, 0, 0, 0, 0, 0, 0, 0 };
-            device0.setNetworkKey(0, userNetworkKey);
-            var timeout = 2.5 / 2.5;
-            int timeoutValue = (int)timeout;
-            channel0.setChannelSearchTimeout((byte)timeoutValue);
-            channel0.openChannel();
+            foreach (var kvp in antDevices)
+            {
+                Console.WriteLine($"resetting channel: {channelNo}");
+                ANT_Channel channel0 = kvp.Value[channelNo];
+                channel0.assignChannel(ANT_ReferenceLibrary.ChannelType.BASE_Slave_Receive_0x00, 0, 500);
+                channel0.setChannelID(0, false, 0, 0);
+                channel0.setChannelFreq(57);
+                channel0.setChannelPeriod(8050);
+                byte[] userNetworkKey = { 0xB9, 0xA5, 0x21, 0xFB, 0xBD, 0x72, 0xC3, 0x45 };
+                //byte[] userNetworkKey = { 0, 0, 0, 0, 0, 0, 0, 0 };
+                device0.setNetworkKey(0, userNetworkKey);
+                var timeout = 2.5 / 2.5;
+                int timeoutValue = (int)timeout;
+                channel0.setChannelSearchTimeout((byte)timeoutValue);
+                channel0.openChannel();
+            }
+            
             //AntPlus_Service.eventLog.WriteEntry("Opened channel, Ready to Listen");
         }
 
